@@ -3,10 +3,11 @@ exports.up = function(knex) {
         table.increments('id') //SERIAL PRIMARY KEY
         table.string('name')
         table.boolean('isActive')
-        table.integer('cohortId').references('Cohorts.id')
+        table.integer('cohortId')
+        table.foreign('cohortId').references('Cohorts.id')
     })
 };
 
 exports.down = function(knex) {
-  return knex.schema.raw('DROP TABLE Cohorts')
+  return knex.schema.raw('DROP TABLE Students')
 };
