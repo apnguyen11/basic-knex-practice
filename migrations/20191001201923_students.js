@@ -1,11 +1,9 @@
 exports.up = function(knex) {
-    return knex.schema.createTable('Cohorts', (table) => {
+    return knex.schema.createTable('Students', (table) => {
         table.increments('id') //SERIAL PRIMARY KEY
-        table.string('title')
-        table.string('slug')
+        table.string('name')
         table.boolean('isActive')
-        table.datetime('startDate')
-        table.datetime('endDate')
+        table.integer('cohortId').references('Cohorts.id')
     })
 };
 
