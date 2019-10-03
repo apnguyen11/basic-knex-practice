@@ -11,9 +11,25 @@ const port = 3000;
 app.get('/', function (req, res){
     getAllCohorts()
         .then(function(allCohorts){
+            
             res.send('<ul>' + allCohorts.map(renderCohort).join('') + '</ul>')
         })
 })
+
+app.get('/cohorts/2019-06-houston-flex', function (req, res){
+    getAllCohorts()
+        .then(function(allCohorts){
+            res.send(allCohorts[0])
+        })
+})
+
+app.get('/cohorts/2018-09-houston-flex', function (req, res){
+    getAllCohorts()
+        .then(function(allCohorts){
+            res.send(allCohorts[1])
+        })
+})
+
 
 app.listen(port, function(){
     console.log('Listening on port ' + port)
@@ -23,7 +39,14 @@ app.listen(port, function(){
 
 //Rendering
 function renderCohort(cohort){
-    return `<li><a href="/cohorts/${cohort.slug}">${cohort.title}</a></li>`
+    return `<li><a id="${cohort.id}" href="/cohorts/${cohort.slug}">${cohort.title}</a></li>`
+}
+
+function renderCohortData(cohort){
+    return `<div>
+
+    
+            </div>`
 }
 
 
