@@ -4,7 +4,8 @@ const app = express();
 const dbConfics = require('./knexfile.js')
 const db = require('knex')(dbConfics.development)
 
-app.listen(3000)
+const port = 3000;
+
 
 //Express.js Endpoints
 app.get('/', function (req, res){
@@ -14,6 +15,12 @@ app.get('/', function (req, res){
         })
 })
 
+app.listen(port, function(){
+    console.log('Listening on port ' + port)
+})
+
+
+
 //Rendering
 function renderCohort(cohort){
     return `<li><a href="/cohorts/${cohort.slug}">${cohort.title}</a></li>`
@@ -21,7 +28,7 @@ function renderCohort(cohort){
 
 
 //Database Queries
-const getAllCohortQuery = `
+const getAllCohortsQuery = `
     SELECT *
     FROM Cohorts
 `
@@ -32,4 +39,10 @@ function getAllCohorts(){
 
 function getOneCohort(slug){
     return db.raw('SELECT * FROM Cohorts WHERE slug = ?', [slug])
+}
+
+//Misc
+
+function prettyPrintJSON(x){
+    return JSON.stringify(x, null, 2)
 }
